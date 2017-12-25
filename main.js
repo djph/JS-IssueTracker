@@ -8,6 +8,19 @@ function saveIssue(e){	// e means event
 		var issueId = chance.guid();
 		var issueStatus = 'Open';
 		
+	// form validation
+	issueDesc = issueDesc.replace(/^\s+/, '').replace(/\s+$/, '');
+	issueAssignedTo = issueAssignedTo.replace(/^\s+/, '').replace(/\s+$/, '');
+	
+	if (issueDesc === '' || issueAssignedTo === '') {
+		// text was all whitespace
+		alert("Empty content! Please input values.");
+		e.preventDefault();	
+		return;	// so the function stops. it doesn't proceed on adding the 'issue' object
+	}
+	else {
+		// text has real content, now free of leading/trailing whitespace
+	}		
 		var issue = {
 			id: issueId,
 			description: issueDesc,
@@ -17,7 +30,6 @@ function saveIssue(e){	// e means event
 		};			
 		
 		if(localStorage.getItem('issues') == null ){
-			console.log("wala pang laman ang local storage");
 			var issues = [];
 			issues.push(issue);
 			
@@ -42,14 +54,6 @@ function saveIssue(e){	// e means event
 			localStorage.setItem('issues', JSON.stringify(issues) );
 			
 			var issues = JSON.parse(localStorage.getItem('issues') );
-			console.log("may laman na ang json");
-				
-			
-			for(var i; i < issues.length; i++){
-				console.log("id: " + issues[i].id);
-				console.log("desc: " + issues[i].description);
-				console.log("severity: " +  	issues[i].severity);
-			}
 
 		}
 		
@@ -74,23 +78,70 @@ function fetchIssues(){
 		var assignedTo = issues[i].assignedTo;
 		var status = issues[i].status;
 		
-		
-		issuesList.innerHTML += '<div class = "row issueCard"> ' +
+		var temp;
+		temp = '<div class = "row issueCard"> ' +
 								'<div class = "col"> </div>' +
 								'<div class = "col-sm-12 col-md-11 col-lg-8">' +
 								'<div class = "card issueCard">' +
 								'<div class = "card-block issueCard">' +
-								'<h6>Issue ID: ' + id + '</h6>' +
-								'<p class = "label label-info">' + status + '</p>' +
-								'<h3>' + desc + '</h3>' +
+								'<h6>Issue ID: ' + id + '</h6>'
+								if(status !== "Closed"){
+									temp += '<p> <span class = "badge badge-info">' + status + '</span></p>';	
+								}
+								else{ // if status is "Closed"
+									temp += '<p> <span class = "badge badge-default">' + status + '</span></p>'	
+								}
+		temp +=	'<h3>' + desc + '</h3>' +
 								'<p class ="fa fa-clock-o" aria-hidden="true"> ' + severity + '</p>' +
-								'<p class ="fa fa-user-circle"> ' + assignedTo + '</p>' +
-								'<a href="#" onclick = "setStatusClosed(\''+id+'\')" class = "btn btn-warning"> Close </a>' +
-								'<a href="#" onclick = "deleteIssue(\''+id+'\')" class = "btn btn-danger"> Delete </a>' +
+								'<p class ="fa fa-user-circle"> ' + assignedTo + '</p>'
+								if(status !== "Closed"){ // if issue is still open, show button to Close issue
+									temp += '<a href="#" onclick = "setStatusClosed(\''+id+'\')" class = "btn btn-warning"> Close </a>'
+								}
+		temp +=	'<a href="#" onclick = "deleteIssue(\''+id+'\')" class = "btn btn-danger"> Delete </a>' +
 								'</div>' +	// closing tag for 'card-block' class
 								'</div>' +	// closing tag for 'card' class
 								'</div>' +  // closing for col class
 								'<div class = "col"> </div>' + 
 								'</div>';	// closing for the row
+								
+		issuesList.innerHTML += temp;
+	}
+}
+
+function deleteIssue(id){
+	// use JSON.parse to convert a text from web server into a javascript object, so u can use it in your program
+	var issues = JSON.parse(localStorage.getItem("issues") );
+	
+	for(var i = 0; i < issues.length; i++){
+		if(issues[i].id === id){
+			issues.splice(i, 1);	// remove the item from the array
+			localStorage.setItem("issues", JSON.stringify(issues) );	// set again the "issues" key with the newly changed array
+			
+		}
+	}
+	
+	fetchIssues();
+}
+
+function setStatusClosed(id){
+	
+	var issues = JSON.parse(localStorage.getItem("issues") );
+	
+	for(var i = 0; i < issues.length; i++){
+		if(issues[i].id === id){
+			issues[i].status = "Closed";
+			localStorage.setItem("issues", JSON.stringify(issues) );
+		}
+	}
+	
+	fetchIssues();
+}
+
+function keme(){
+	var p = document.getElementById("test");
+	
+	for(var i = 0; i < 3; i++){
+		p.innerHTML += 'hi' + 'yow'
+		p.innerHTML += 'second time' + 'ganern'
 	}
 }
