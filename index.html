@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="bootstrap-4.0.0-alpha.6-dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css">
+	<link rel = "stylesheet" href = "font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel = "stylesheet" href = "styles.css">
+  </head>
+  
+  <body onload="fetchIssues()">
+	<div>
+	<button type="button" class="btn btn-default" aria-label="Left Align">
+  <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+</button>
+	<div>
+	<div class = "container-fluid mainCard">
+		<div class = "row">
+			<div class = "col">
+			</div>
+			<div class = "col-sm-12 col-md-11 col-lg-8">
+				<h3> JS Issue Tracker </h3>
+				<div class="card mainCard">
+					<div class="card-block mainCard">
+						<h5>Add new Issue: </h5>
+						<form id = "inputIssueForm">
+							<div class="form-group">
+								<label for="addDescription">Description</label>
+								<input type="text" class="form-control" id="addDescription" placeholder="Describe the issue">
+							</div>
+							<div class="form-group">
+								<label for="issueSeverity">Severity</label>
+								<select class="form-control" id="issueSeverity">
+								<option value = "Low">Low</option>
+								<option value = "Medium">Medium</option>
+								<option value = "High">High</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="assignedTo">Assigned To</label>
+								<input type="text" class="form-control" id="assignedTo" placeholder="Enter employee name">
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class = "col">
+			</div>
+		</div>
+	</div>
+	
+	<!-- issues container -->
+	<div class = "container-fluid" id = "issuesList">
+		<div class = "row">
+								<div class = "col"> </div>
+								<div class = "col-sm-12 col-md-11 col-lg-8">
+								<h6>Issue ID:   id </h6> 
+								<p class = "label label-info">status </p>
+								<h3>desc </h3>
+								<p class = "glyphicon glyphicon-time"> severity</p>
+								<p class = "glyphicon glyphicon-time">assignedTo</p>
+								<a href="#" onclick = "setStatusClosed()" class = "btn btn-warning"> Close </a>
+								<a href="#" onclick = "deleteIssue()" class = "btn btn-danger"> Delete </a> 
+								</div>
+								<div class = "col"> </div>
+			</div>
+	</div>
+	<div class = "footer">
+	</div>
+	
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="bootstrap-4.0.0-alpha.6-dist/js/bootstrap.min.js"> </script>
+	<script src = "http://chancejs.com/chance.min.js"> </script>
+	<script src ="main.js"> </script>
+	
+  </body>
+</html>
